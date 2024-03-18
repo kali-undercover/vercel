@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Page Not Found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: greenyellow;
+        }
+
+        canvas {
+            display: block;
+            background-color: black;
+            width: 100%;
+            height: 100vh;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        h1 {
+            position: fixed;
+            top: calc(50vh - 40px);
+            left: 50px;
+        }
+
+        @media screen and (max-width: 300px) {
+            h1 {
+                left: 10px;
+                top: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas onclick="openFullscreen()">
+
+    </canvas>
+    <center>
+        <h1>404 | Page Not Found<br><a href="./">Home</a></h1>
+    </center>
+    <script>
+        const canvas = document.querySelector("canvas");
+        function openFullscreen() {
+            if (canvas.requestFullscreen) {
+                canvas.requestFullscreen();
+            } else if (canvas.webkitRequestFullscreen) {
+                canvas.webkitRequestFullscreen();
+            } else if (canvas.msRequestFullscreen) {
+                canvas.msRequestFullscreen();
+            }
+        }
+        const ctx = canvas.getContext("2d");
+
+        // - - - - - GLOBALS - - - - - -
+
+        const NUMBER_OF_POINTS = 200;
+        const POINT_SIZE = 3;
+        const POINT_VELOCITY = 1;
+        const POINT_COLOR = "#5ff";
+        const points = [];
+        let LINE_THRESHOLD = 500;
+        const TRAIL_FACTOR = 1.75;
+
+        // - - - - - CANVAS FULL-SIZE - - - - -
+
+        window.addEventListener("resize", adjust_canvas);
+
+        function adjust_canvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.fillStyle = POINT_COLOR;
+            LINE_THRESHOLD = compute_line_threshold();
+        }
+
+        // - - - - - MAIN LOOP - - - - -
+
+        function loop() {
+            clear_canvas();
+            update_points();
+            draw_lines();
+            draw_points();
+            requestAnimationFrame(loop);
+        }
+
+        // - - - - - INITIALIZATION - - - - -
+
+        function init() {
+            adjust_canvas();
+            generate_points();
+            draw_points();
+            loop();
+        }
+
+        document.addEventListener("DOMContentLoaded", init);
+
+        // - - - - - GENERATE POINTS - - - - -
+
+        function generate_points() {
+            for (let i = 0; i < NUMBER_OF_POINTS; i++) {
+                const x = rand_int(0, canvas.width);
+                const y = rand_int(0, canvas.height);
+                const vx = rand(-POINT_VELOCITY, POINT_VELOCITY);
+                const vy = rand(-POINT_VELOCITY, POINT_VELOCITY);
+                const r = POINT_SIZE;
+                points.push({ x, y, r, vx, vy });
+            }
+        }
+
+        // - - - - - POINTS - - - - -
+
+        function draw_point(point) {
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, point.r, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function draw_points() {
+            points.forEach(draw_point);
+        }
+
+        function update_point(point) {
+            point.x += point.vx;
+            point.y += point.vy;
+            restrict_to_canvas(point);
+        }
+
+        function update_points() {
+            points.forEach(update_point);
+        }
+
+        // - - - - - LINES - - - - -
+
+        const compute_line_color = (distance) => {
+            const ratio = distance / LINE_THRESHOLD;
+            const alpha = (1 - ratio) ** 0.2;
+            const hue = 120 + 50 * ratio;
+            return `hsl(${hue}deg,100%,50%,${alpha})`;
+            //return `rgba(0,255,255,${alpha})`;
+        };
+
+        const compute_line_threshold = () => {
+            return ((canvas.width + canvas.height) / 2) * 0.08;
+        };
+
+        function draw_line(point1, point2) {
+            const dist = distance(point1, point2);
+            if (dist > LINE_THRESHOLD) return;
+            ctx.strokeStyle = compute_line_color(dist);
+            ctx.beginPath();
+            ctx.moveTo(point1.x, point1.y);
+            ctx.lineTo(point2.x, point2.y);
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function draw_lines() {
+            for (let i = 0; i < NUMBER_OF_POINTS; i++) {
+                for (let j = i + 1; j < NUMBER_OF_POINTS; j++) {
+                    draw_line(points[i], points[j]);
+                }
+            }
+        }
+
+        // - - - - - UTILITIES - - - - -
+
+        function rand_int(a, b) {
+            return a + Math.floor((b - a) * Math.random());
+        }
+        function rand(a, b) {
+            return a + (b - a) * Math.random();
+        }
+
+        function distance(point1, point2) {
+            return ((point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2) ** 0.5;
+        }
+
+        function clear_canvas() {
+            ctx.save();
+            ctx.fillStyle = "black";
+            ctx.globalAlpha = 1 - TRAIL_FACTOR;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha = 1;
+            ctx.restore();
+        }
+
+        function restrict_to_canvas(point) {
+            // right
+            if (point.x - point.r >= canvas.width) {
+                point.x = -point.r;
+            }
+            // left
+            else if (point.x + point.r <= 0) {
+                point.x = canvas.width + point.r;
+            }
+            // bottom
+            if (point.y - point.r >= canvas.height) {
+                point.y = -point.r;
+            }
+            // top
+            else if (point.y + point.r <= 0) {
+                point.y = canvas.height + point.r;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,607 @@
+::-webkit-scrollbar {
+    width: 7px;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-corner {
+    display: none;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rebeccapurple;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(126, 57, 196);
+    border-radius: 2px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: all 0.5s linear;
+    background-size: 100%;
+    word-wrap: break-word;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+*::selection {
+    background-color: dodgerblue;
+    color: black;
+}
+
+*::grammar-error {
+    border-bottom: 1px ridge red;
+}
+
+body {
+    overflow: auto;
+    background-color: black;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.content-black {
+    margin-top: -20px;
+    padding-top: 20px;
+}
+
+#content {
+    float: left;
+    width: calc(100% - 30% - 50px);
+    margin-left: 30px;
+    padding: 10px;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: black;
+    color: gold;
+    animation: loadFromLeft 0.3s linear;
+    position: relative;
+}
+
+#you {
+    float: right;
+    width: calc(30% - 20px);
+    height: 100vh;
+    background-color: gold;
+    color: black;
+    padding: 10px;
+    overflow-y: scroll;
+    animation: loadFromRight 0.3s linear;
+}
+
+input,
+button,
+select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid black;
+    width: calc(100% - 20px);
+    background-color: gold;
+    color: black;
+    transition: all 0.5s linear;
+}
+
+input:focus,
+select:hover,
+button:hover,
+.focus {
+    transition: all 0.5s linear;
+    outline: none;
+    border-bottom: 5px dashed dodgerblue;
+    background-color: black;
+    color: gold;
+}
+
+button {
+    cursor: pointer;
+}
+
+input::placeholder {
+    color: rgb(93, 0, 255);
+}
+
+hr {
+    border: 1px solid;
+}
+
+.abbo-div {
+    font-weight: 100;
+    height: calc(100vh - 200px);
+    min-height: 100px;
+    overflow: scroll;
+}
+
+#latestNotification {
+    height: 40px;
+    cursor: pointer;
+}
+
+.abbo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-bottom: 3px;
+    margin-top: 3px;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    overflow: hidden;
+    height: 30px;
+}
+
+.abbo:hover {
+    background-color: dodgerblue;
+    transition: all 0.3s linear;
+}
+
+.abbo-focus {
+    background-color: rgb(82, 169, 255);
+}
+
+.delete-abbo-button {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.your-post-div {
+    font-weight: 100;
+    height: calc(50vh - 80px);
+    min-height: 100px;
+    overflow-y: scroll;
+}
+
+.your-post {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.your-post-date {
+    font-style: italic;
+    font-size: 8px;
+    font-weight: 100;
+}
+
+.none {
+    display: none;
+}
+
+.Upload {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(200px);
+    top: 10px;
+    left: 20px;
+    width: calc(100% - 70px);
+    height: calc(100vh - 60px);
+    padding: 20px;
+    color: gold;
+    box-shadow: 5px 5px 5px black;
+    border-radius: 10px;
+    animation: goIn 0.5s linear;
+    overflow-y: scroll;
+}
+
+.closeButton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: dodgerblue;
+    fill: black;
+    border-radius: 50%;
+}
+
+.closeButton:hover {
+    border: none;
+    transform: rotate(360deg);
+}
+
+@keyframes goIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+.Upload p,
+.Upload h2 {
+    border-bottom: 1px solid;
+    padding: 10px;
+}
+
+:focus {
+    outline: none;
+    transition: all 0.3s linear;
+    box-shadow: 0px 0px 2px 2px dodgerblue;
+}
+
+.post {
+    width: 1fr;
+    height: 250px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 1);
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    text-rendering: geometricPrecision;
+    transition: all 0.4s linear;
+    position: relative;
+}
+
+.post .share {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    border-radius: 20px;
+    top: -5px;
+    right: -5px;
+    border: none;
+}
+
+.post .share:hover {
+    border: none;
+}
+
+.postscroll {
+    outline: 3px solid;
+}
+
+.post::-webkit-scrollbar {
+    width: 5px;
+}
+
+.post:hover {
+    transition: all 0.4s linear;
+    overflow: scroll;
+    transform: scale(1.01);
+    background-color: rgb(25, 5, 43);
+    box-shadow: 0px 0px 5px 5px rgb(25, 5, 43);
+}
+
+.post p {
+    text-align: match-parent;
+    text-rendering: optimizeSpeed;
+}
+
+#otherPosts {
+    min-height: calc(100vh - 50px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    border-radius: 10px;
+}
+
+button:hover svg {
+    fill: dodgerblue;
+    transform: scale(1.3);
+}
+
+.changeDiv {
+    display: none;
+}
+
+#changeDescriptionDiv {
+    overflow: scroll;
+    height: 100px;
+    1
+}
+
+.update-name-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: 15px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#UserLogo {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+#UserLogo:hover {
+    border-radius: 12px;
+}
+
+.LikeButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: none;
+}
+
+.LikeButton:hover {
+    border: none;
+    transform: rotate(360deg);
+}
+
+.LikeButton:focus,
+.selected {
+    box-shadow: none;
+    background-color: dodgerblue;
+    fill: black;
+}
+
+.SendButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: none;
+    margin-left: auto;
+}
+
+.SendButton:hover {
+    border: none;
+    transform: rotate(360deg);
+}
+
+.like-menue {
+    background-color: black;
+    border-radius: 5px;
+}
+
+.like-menue:hover {
+    box-shadow: 0px 2px 2px 2px rgba(255, 255, 255, 0.137);
+    transform: scale(1.03);
+}
+
+.Komments {
+    margin-top: 10px;
+    background-color: black;
+    border-radius: 0px 10px;
+    padding: 5px;
+}
+
+.Komments:hover {
+    box-shadow: 0px 2px 2px 2px rgba(255, 255, 255, 0.137);
+    transform: scale(1.03);
+}
+
+.Komment {
+    margin-top: 10px;
+    background-color: rgb(10, 10, 10);
+    border-radius: 0px 5px;
+    padding: 5px;
+    padding-left: 0;
+}
+
+.small-komment-input {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+}
+
+.small-komment-input:focus {
+    border: none;
+    box-shadow: none;
+    color: dodgerblue;
+    border-bottom: 2px solid dodgerblue;
+    background-color: black;
+}
+
+.small-komment-input::placeholder {
+    color: black;
+}
+
+.KommentForm {
+    display: flex;
+    align-items: center;
+}
+
+.komment-to-user-button {
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 2px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.edit-background-i {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 100%;
+}
+
+.edit-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+.loading {
+    position: absolute;
+    top: calc(50vh - 30px);
+    left: calc(50% - 30px);
+    width: 60px;
+    height: 60px;
+    border-radius: 20px;
+    background-color: dodgerblue;
+    animation: load 0.5s linear infinite;
+    box-shadow: 0px 0px 100px 4px dodgerblue;
+}
+
+@keyframes load {
+    50% {
+        outline: 10px dotted dodgerblue;
+        transform: scale(1.5) rotate(90deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes loadFromLeft {
+    0% {
+        transform: translate(-103%);
+    }
+}
+
+@keyframes loadFromRight {
+    0% {
+        transform: translate(103%);
+    }
+}
+
+.chattroom ::-webkit-scrollbar {
+    display: none;
+}
+
+.chattroom {
+    scroll-behavior: smooth;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.chattroom #messages {
+    min-height: calc(100vh - 60px);
+    margin-bottom: 100px;
+    border-radius: 5px;
+    overflow: scroll;
+}
+
+.chattroom .msg {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.chattroom #form {
+    position: fixed;
+    bottom: 0;
+    left: 30px;
+    width: calc(100% - 30% - 65px);
+    display: flex;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chattroom input,
+.chattroom button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 10px;
+    transition: all 0.5s linear;
+}
+
+.chattroom button {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    transition: all 0.5s linear;
+    fill: black;
+}
+
+.chattroom button:hover {
+    transform: scale(1.1);
+}
+
+.chattroom input:focus,
+.chattroom button:hover {
+    outline: none;
+    transform: scale(1.1);
+    margin: 0px 10px;
+}
+
+.chattroom input::placeholder {
+    color: black;
+}
+
+.chattroom .other {
+    background-color: hsl(0, 100%, 60%);
+}
+
+.chattroom .other * {
+    background-color: inherit;
+    color: black;
+}
+
+.chattroom .your {
+    background-color: greenyellow;
+    box-shadow: 0px 0px 15px 1px hsl(153, 70%, 30%);
+}
+
+.chattroom .your * {
+    background-color: inherit;
+    color: black;
+}
+
+@media screen and (max-width: 600px) {
+    #content {
+        width: calc(100% - 50px);
+        margin-left: 30px;
+    }
+
+    .chattroom #form {
+        width: calc(100% - 75px);
+        left: 40px;
+        bottom: 40px;
+    }
+
+    #you {
+        width: calc(100% - 50px);
+        margin-left: 30px;
+    }
+
+    .changeDiv {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 130px;
+        position: fixed;
+        bottom: 10px;
+        left: calc(50% - 65px);
+        background-color: dodgerblue;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    body {
+        overflow: auto;
+    }
+
+    #you {
+        overflow: auto;
+        padding-bottom: 50px;
+    }
+}
