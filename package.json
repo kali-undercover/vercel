@@ -1,5 +1,5 @@
 {
-  "name": "express_test_vercel",
+  "name": "electron_programm",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ws": "^8.16.0"
+    "multiparty": "^4.2.3",
+    "ws": "^8.14.2"
   }
 }
