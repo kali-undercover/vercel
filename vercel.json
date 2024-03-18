@@ -6,5 +6,5 @@
             "destination": "/api"
         }
     ],
-    "public": true
+    "public": false
 }
